@@ -1,5 +1,14 @@
 {
   "name": "ng-im-cr",
   "version": "0.0.1",
-  "private": false
+  "private": false,
+  "main": [
+    "ng-img-crop.js",
+    "ng-img-crop.css"
+  ],
+   "ignore": [
+    "node_modules",
+    "bower_components",
+    "test"
+  ]
 }
