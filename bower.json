@@ -6,6 +6,14 @@
     "ng-img-crop.js",
     "ng-img-crop.css"
   ],
+  "authors": [
+    "Volodymyr Yeryhin <vova.yeryhin@gmail.com>"
+  ],
+  "keywords": [
+    "crop",
+    "angular",
+    "image"
+  ],
    "ignore": [
     "node_modules",
     "bower_components",

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <title>ngImgCrop Test Page</title>
+ <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+ <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
+  <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>-->
+  <script type="text/javascript" src="ng-img-crop.js"></script>
+  <link rel="stylesheet" href="ng-img-crop.css"/>
+  <style>
+    .cropArea {
+      background: #E4E4E4;
+      margin: auto;
+      overflow: hidden;
+       width:800px;
+      height:600px;
+    }
+  </style>
+</head>
+<body ng-controller="Ctrl">
+  <div>
+    <label><input type="checkbox" ng-model="enableCrop" ng-init="enableCrop=true"/> Add ngImgCrop to Page</label>
+  </div>
+  <div>
+    Area type:
+    <label><input type="radio" ng-model="type" value="circle" /> Circle</label>
+    <label><input type="radio" ng-model="type" value="square" /> Square</label>
+    <!--<label><input type="radio" ng-model="type" value="rectangle" /> Rectangle</label>-->
+  </div>
+  <div>
+    <label><input type="checkbox" ng-model="changeOnFly" /> Change On Fly</label>
+  </div>
+  <!--
+  <div>
+    <label>Aspect Ratio: <input type="text" ng-model="aspectRatio" /></label>
+  </div>
+  -->
+  <div>
+    <label>Area Min Size (Size = Width = Height): <input type="text" ng-model="selMinSize" /></label>
+  </div>
+  <div>
+    <label>Result Image Size (Size = Width = Height): <input type="text" ng-model="resImgSize" /></label>
+  </div>
+  <div>
+    Result Image Format:
+    <label><input type="radio" ng-model="resImgFormat" value="image/jpeg" /> image/jpeg</label>
+    <label><input type="radio" ng-model="resImgFormat" value="image/png" /> image/png</label>
+    <label><input type="radio" ng-model="resImgFormat" value="image/webp" /> image/webp</label>
+  </div>
+  <div>
+    <label>Result Image Quality (0<=X<=1): <input type="text" ng-model="resImgQuality" /></label>
+  </div>
+  <form ng-show="enableCrop">
+    <label for="fileInput">Select Image:</label>
+    <input type="file" id="fileInput" />
+    <button type="reset">Clear</button>
+    <button ng-click="imageDataURI='test.jpg'">Set Test Image</button>
+  </form>
+  <div>
+    <label>Image URL: <input type="text" ng-model="edtImageURI" /></label>
+    <button ng-click="imageDataURI=edtImageURI">Set Image</button>
+  </div>
+  <div>
+    <button ng-click="imageDataURI=''">Reset Image</button>
+  </div>
+  <label>Color Outline<input type="text" ng-model="colorset.Outline">{{colorset.Outline}}  </label><br />
+  <label>Color BoxStroke<input type="text" ng-model="colorset.BoxStroke">{{colorset.BoxStroke}}  </label><br />
+  <label>Color BoxFill<input type="text" ng-model="colorset.BoxFill">{{colorset.BoxFill}}  </label><br />
+  <label>Color boxArrowFill<input type="text" ng-model="colorset.boxArrowFill">{{colorset.boxArrowFill}}  </label><br />
+  <label>Color CircleStroke<input type="text" ng-model="colorset.CircleStroke">{{colorset.CircleStroke}}  </label><br />
+  <label>Color CircleFill<input type="text" ng-model="colorset.CircleFill">{{colorset.CircleFill}}  </label><br />
+  <label>Color IconFill<input type="text" ng-model="colorset.IconFill">{{colorset.IconFill}}  </label><br />
+
+  <div ng-if="enableCrop" class="cropArea">
+    <img-crop image="imageDataURI"
+              result-image="$parent.resImageDataURI"
+              area-type="{{type}}"  	 
+    ></img-crop>
+              <!--aspect-ratio="aspectRatio"
+				  options="obj" 
+				  result-image-size="resultImageSize"
+				  result-image-format="resultImageFormat"
+				  area-min-size="selMinSize"
+				  result-image-quality="resultImageQuality"
+				  change-on-fly="changeOnFly"
+				  on-change="onChange($dataURI)"
+	              on-load-begin="onLoadBegin()"
+	              on-load-done="onLoadDone()"
+	              on-load-error="onLoadError()"
+              -->
+  </div>
+  <div style="text-align:center">
+    <h3>Result</h3>
+    <div>
+      <img ng-src="{{resImageDataURI}}" />
+    </div>
+  </div>
+  <script type="text/javascript">
+    angular.module('app', ['ngImgCrop'])
+    	 .config(["cropFactoryProvider", function (cropFactoryProvider) {
+ 			// cropFactoryProvider.colorOutline("#000");
+ 			// cropFactoryProvider.colorCircleFill("#000");
+
+ 			// cropFactoryProvider.setResImgSize(1000);
+ 			// cropFactoryProvider.setResImgFormat("image/png");
+ 			// cropFactoryProvider.setsetAreaMinSize(200);
+ 			// cropFactoryProvider.setResultImageQuality(1);
+ 			// cropFactoryProvider.setChangeOnFly(true);
+
+ 			// cropFactoryProvider.setresizeCtrlBaseRadius(8);	
+ 			// cropFactoryProvider.setresizeCtrlNormalRatio(8);
+         	// cropFactoryProvider.setresizeCtrlHoverRatioSet(8);
+   	        // cropFactoryProvider.seticonMoveNormalRatioSet(8);
+   	        // cropFactoryProvider.seticonMoveHoverRatioSet(8);
+
+   	        // cropFactoryProvider.setboxResizeBaseSize(4);
+   	        // cropFactoryProvider.setboxResizeNormalRatio(4);
+   	        // cropFactoryProvider.setboxResizeHoverRatio(4);
+   	        // cropFactoryProvider.seticonMoveNormalRatio(4);
+   	        // cropFactoryProvider.seticonMoveHoverRatio(4);
+
+   		 }])
+      	.controller('Ctrl', function($scope, cropFactory) {
+       
+       // $scope.type='square';
+       // $scope.imageDataURI='';
+       // $scope.resImageDataURI='';
+        
+   //     $scope.aspectRatio=6.2;
+  // 	$scope.changeOnFly=false;
+  //    $scope.resultImageQuality=1;
+  //    $scope.selMinSize=100;
+  //   	$scope.resultImageSize=200;
+  //	$scope.resultImageFormat="image/png"
+  //    $scope.colorset={
+  //   	 Outline: "#fff",
+  //   	 BoxStroke: "#000",
+  //  	 BoxFill: "#000",
+  // 	 boxArrowFill: "#000",
+  //     CircleStroke: "#000",
+  //     CircleFill: "#fff",
+  //     IconFill: "#000"
+  // }
+
+        // $scope.onChange=function($dataURI) {
+        //   console.log('onChange fired');
+        // };
+        // $scope.onLoadBegin=function() {
+        //   console.log('onLoadBegin fired');
+        // };
+        // $scope.onLoadDone=function() {
+        //   console.log('onLoadDone fired');
+        // };
+        // $scope.onLoadError=function() {
+        //   console.log('onLoadError fired');
+        // };
+
+        var handleFileSelect=function(evt) {
+          var file=evt.currentTarget.files[0];
+          var reader = new FileReader();
+          reader.onload = function (evt) {
+            $scope.$apply(function($scope){
+              $scope.imageDataURI=evt.target.result;
+            });
+          };
+          reader.readAsDataURL(file);
+        };
+        angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+        $scope.$watch('resImageDataURI',function(){
+          //console.log('Res image', $scope.resImageDataURI);
+        });
+      	});
+  </script>
+</body>
+</html>
