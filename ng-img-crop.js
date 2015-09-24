@@ -754,7 +754,7 @@ crop.factory('cropCanvas', ['cropFactory', function(cropFactory) {
       ctx.fillStyle = colors.resizeBoxFill;
 
       ctx.beginPath();  
-      ctx.arc(centerCoords[0],centerCoords[1], cropFactory.AreaCircleResize._boxResizeBaseSize, 0, Math.PI*2, false);
+      ctx.arc(centerCoords[0],centerCoords[1], scaledCircleRadius, 0, Math.PI*2, false);
            
       ctx.closePath();  
       ctx.fill(); 
