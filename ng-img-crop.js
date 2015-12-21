@@ -1665,7 +1665,7 @@ crop.factory('cropHost', ['$document', 'cropAreaCircle', 'cropAreaSquare', 'crop
         var imageDims=[image.width, image.height],
             imageRatio=image.width/image.height,
             canvasDims=imageDims;
-        element.prop('width', canvasDims[0]).prop('height', canvasDims[1]);
+        element.css({ 'width': canvasDims[0] + 'px', 'height': canvasDims[1]+ 'px' });
         if(canvasDims[0]>maxCanvasDims[0]) {
           canvasDims[0]=maxCanvasDims[0];
           canvasDims[1]=canvasDims[0]/imageRatio;
