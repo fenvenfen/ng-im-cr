@@ -1610,7 +1610,7 @@ crop.factory('cropHost', ['$document', 'cropAreaCircle', 'cropAreaSquare', 'crop
       return { top: Math.round(top), left: Math.round(left) };
   };
 
-  return function(elCanvas, opts, events){
+  return function(element, opts, events){
     /* PRIVATE VARIABLES */
 
     // Object Pointers
@@ -1631,7 +1631,7 @@ crop.factory('cropHost', ['$document', 'cropAreaCircle', 'cropAreaSquare', 'crop
     var resImgQuality=null;
 
     /* PRIVATE FUNCTIONS */
-
+    var elCanvas = element.find('canvas');
     // Draw Scene
     function drawScene() {
       // clear canvas
@@ -1677,7 +1677,7 @@ crop.factory('cropHost', ['$document', 'cropAreaCircle', 'cropAreaSquare', 'crop
           canvasDims[0]=canvasDims[1]*imageRatio;
         }
         elCanvas.prop('width',canvasDims[0]).prop('height',canvasDims[1]).css({'margin-left': -canvasDims[0]/2+'px', 'margin-top': -canvasDims[1]/2+'px'});
-
+        element.prop('width',canvasDims[0]).prop('height', canvasDims[1]);
         theArea.setX(ctx.canvas.width/2);
         theArea.setY(ctx.canvas.height/2);
         theArea.setSize(Math.min(200, ctx.canvas.width/2, ctx.canvas.height/2));
@@ -2053,7 +2053,7 @@ crop.directive('imgCrop', ['$timeout', 'cropHost', 'cropPubSub', 'cropFactory', 
 
 
       // Init Crop Host
-      var cropHost=new CropHost(element.find('canvas'), scope.options, events);
+      var cropHost=new CropHost(element, scope.options, events);
 
       // Store Result Image to check if it's changed
       var storedResultImage;
