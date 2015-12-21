@@ -1655,7 +1655,7 @@ crop.factory('cropHost', ['$document', 'cropAreaCircle', 'cropAreaSquare', 'crop
     }
 
 
-    element.prop('width', canvasDims[0]).prop('height', canvasDims[1]);
+    
     // Resets CropHost
     var resetCropHost=function() {
         if (image !== null) {
@@ -1665,7 +1665,7 @@ crop.factory('cropHost', ['$document', 'cropAreaCircle', 'cropAreaSquare', 'crop
         var imageDims=[image.width, image.height],
             imageRatio=image.width/image.height,
             canvasDims=imageDims;
-
+        element.prop('width', canvasDims[0]).prop('height', canvasDims[1]);
         if(canvasDims[0]>maxCanvasDims[0]) {
           canvasDims[0]=maxCanvasDims[0];
           canvasDims[1]=canvasDims[0]/imageRatio;
