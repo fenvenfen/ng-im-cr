@@ -1654,9 +1654,10 @@ crop.factory('cropHost', ['$document', 'cropAreaCircle', 'cropAreaSquare', 'crop
       }
     }
 
+
+    element.prop('width', canvasDims[0]).prop('height', canvasDims[1]);
     // Resets CropHost
     var resetCropHost=function() {
-        element.prop('width', canvasDims[0]).prop('height', canvasDims[1]);
         if (image !== null) {
           theArea.setImage(image);
          
